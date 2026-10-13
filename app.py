@@ -12,7 +12,7 @@ QUESTIONS = [
     ("How do I leave?", "You do not. You have always been here."),
     ("What does this website do?", "It exists. Some days that is enough."),
     ("Where are the buttons?", "Everywhere. Especially the one that is running away from you."),
-    ("Who made this?", "Aws, with Claude helping, on purpose, which makes it worse."),
+    ("Who made this?", "Me, Aws. All of it. On purpose, which makes it worse."),
     ("Is it safe?", "It has never hurt anyone, except your eyes."),
     ("Can I get a refund?", "You paid nothing, so we are giving you nothing back. Very fair."),
     ("Why is the font like that?", "We asked a committee of pigeons."),
