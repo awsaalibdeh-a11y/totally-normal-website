@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TOTALLY NORMAL WEBSITE!!!</title>
+<meta name="description" content="A deliberately terrible website. Nothing here makes sense.">
+<style>
+  * { box-sizing: border-box; }
+  html { cursor: crosshair; }
+  body { margin: 0; font-family: "Comic Sans MS", "Comic Sans", "Chalkboard SE", cursive; color: #00ff00; background: #ff00ff; animation: bg 6s linear infinite; overflow-x: hidden; text-align: center; }
+  @keyframes bg { 0% { background: #ff00ff; } 25% { background: #00ffff; } 50% { background: #ffff00; } 75% { background: #ff6600; } 100% { background: #ff00ff; } }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes blink { 50% { opacity: 0; } }
+  h1 { font-size: clamp(30px, 8vw, 80px); margin: 10px 0; height: 1.25em; overflow: hidden; white-space: nowrap; color: red; text-shadow: 3px 3px blue, -3px -3px lime; }
+  h2 { color: #800080; font-size: 30px; text-decoration: underline wavy red; transform: rotate(-2deg); }
+  marquee { background: black; color: yellow; font-size: 22px; padding: 6px; border-top: 6px dotted red; border-bottom: 6px dotted blue; }
+  .box { width: min(640px, 94%); margin: 22px auto; padding: 16px; border: 8px ridge gold; background: #9b59b6; color: #ffff99; font-size: 20px; transform: rotate(1deg); }
+  .box:nth-of-type(even) { transform: rotate(-1.5deg); background: #16a085; color: #ffd1dc; border-color: lime; }
+  button { font-family: inherit; font-size: 20px; padding: 12px 22px; margin: 6px; border: 5px outset #c0c0c0; background: #ffff00; color: #ff0000; cursor: pointer; }
+  button:hover { background: #00ffff; color: #0000ff; }
+  button:active { background: #ff0000; color: #fff; }
+  .arena { position: relative; height: 190px; border: 4px dotted #fff; margin-top: 10px; overflow: hidden; background: rgba(0,0,0,.35); }
+  #run { position: absolute; left: 20px; top: 70px; font-size: 22px; background: lime; margin: 0; }
+  #fact { min-height: 70px; color: white; font-size: 22px; background: #000; padding: 8px; border: 4px dashed hotpink; }
+  .spin { display: inline-block; animation: spin 1.5s linear infinite; font-size: 50px; }
+  .blink { animation: blink 0.7s steps(1) infinite; color: red; font-size: 26px; }
+  #bar { width: 80%; height: 30px; margin: 8px auto; border: 4px solid black; background: white; }
+  #fill { height: 100%; width: 100%; background: repeating-linear-gradient(45deg, red, red 10px, yellow 10px, yellow 20px); }
+  details { text-align: left; margin: 8px 0; border: 3px solid white; padding: 8px; background: rgba(0,0,0,.45); }
+  summary { cursor: pointer; font-size: 21px; color: cyan; }
+  details p { color: #ffffcc; margin: 6px 0 0; transform: rotate(var(--r, 0deg)); }
+  #dot { position: fixed; width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle, #fff, #f0f); border: 3px solid black; z-index: 40; cursor: pointer; display: none; }
+  .trail { position: fixed; pointer-events: none; z-index: 99; font-size: 22px; transition: transform 1s, opacity 1s; }
+  footer { background: black; color: lime; padding: 14px; font-size: 14px; }
+  #cookie { position: fixed; bottom: 0; left: 0; right: 0; background: #ff0; color: #000; padding: 8px; z-index: 60; font-size: 15px; border-top: 5px solid red; }
+  body.worse { animation: bg 1.2s linear infinite; }
+  body.worse h1 { font-size: 20vw; }
+  .tiny { font-size: 9px; color: #333; }
+  /* the warning gate: nothing flashes until the visitor chooses */
+  #gate { position: fixed; inset: 0; z-index: 1000; background: #111; color: #fff; font-family: system-ui, Arial, sans-serif; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  #gate .card { max-width: 560px; border: 3px solid #f5c542; border-radius: 18px; padding: 26px; background: #1b1b1b; text-align: left; }
+  #gate h2 { color: #f5c542; text-decoration: none; transform: none; margin: 0 0 10px; font-size: 26px; }
+  #gate p { font-size: 17px; line-height: 1.5; margin: 8px 0; color: #ddd; }
+  #gate button { font-family: system-ui, Arial, sans-serif; font-size: 17px; padding: 12px 18px; border: 0; border-radius: 12px; margin: 10px 10px 0 0; cursor: pointer; }
+  #gate .calm { background: #3dd49b; color: #06281c; font-weight: 700; } #gate .go { background: #333; color: #fff; }
+  body.gated { animation: none !important; background: #111; overflow: hidden; }
+  body.gated *:not(#gate):not(#gate *) { animation: none !important; }
+  body.calm, body.calm * { animation: none !important; transition: none !important; }
+  body.calm { background: #222 !important; color: #eee; } body.calm marquee { display: none; }
+  body.calm h1 { text-shadow: none; color: #fff; } body.calm .trail { display: none; }
+  @media (prefers-reduced-motion: reduce) { body, body * { animation: none !important; } }
+  .toy button { font-size: 17px; } .out { margin-top: 8px; background: #000; color: #fff; padding: 8px; border: 3px dashed cyan; min-height: 48px; font-size: 20px; }
+  .stars span { font-size: 38px; cursor: pointer; user-select: none; } .tiny2 { font-size: 13px; color: #fff; }
+  #pbar { width: 80%; height: 24px; background: #fff; border: 3px solid #000; margin: 8px auto; } #pfill { height: 100%; width: 0; background: #0f0; }
+  .die { display: inline-block; font-size: 60px; }
+</style>
+</head>
+<body class="gated">
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gt">
+  <div class="card">
+    <h2 id="gt">&#9888;&#65039; Photosensitivity warning</h2>
+    <p>This website is <b>loud on purpose</b>. It has <b>flashing, rapidly changing colours, spinning and moving</b> that may trigger seizures in people with photosensitive epilepsy, and can cause headaches or dizziness.</p>
+    <p>If that could be you, or you are not sure, choose <b>Calm mode</b>. Everything still works, with no flashing and no movement.</p>
+    <button class="calm" id="gcalm">Calm mode (safe)</button>
+    <button class="go" id="gchaos">I am fine, show the chaos</button>
+  </div>
+</div>
+<marquee scrollamount="14">&#127881; WELCOME TO THE TOTALLY NORMAL WEBSITE &#127881; PLEASE ENJOY YOUR STAY &#127881; YOU HAVE WON NOTHING &#127881; THIS MARQUEE IS NOT SPONSORED &#127881;</marquee>
+
+<h1 id="title">TOTALLY NORMAL WEBSITE!!!</h1>
+<div><span class="spin">&#127829;</span> <span class="blink">UNDER CONSTRUCTION SINCE FOREVER</span> <span class="spin" style="animation-direction:reverse">&#127789;</span></div>
+
+<div class="box">
+  <h2>You are visitor number <span id="visitor">-3</span></h2>
+  <p>Loading your personal nothing&hellip;</p>
+  <div id="bar"><div id="fill"></div></div>
+  <p id="loadtxt" class="tiny" style="color:#fff">It is going backwards. This is fine.</p>
+</div>
+
+<div class="box">
+  <h2>Press the button for knowledge</h2>
+  <button id="factbtn">GIVE ME A FACT</button><button id="namebtn">WHO AM I TODAY</button><button id="excbtn">EXCUSE PLEASE</button>
+  <div id="fact">Nothing yet. Be patient. Or not.</div>
+</div>
+
+<div class="box">
+  <h2>The Dot Game</h2>
+  <p>Catch the dot 5 times. It does not want to be caught.</p>
+  <button id="dotstart">START (YOU WILL REGRET IT)</button>
+  <p>Score: <b id="score">0</b></p>
+</div>
+
+<div class="box" id="faq">
+  <h2>COMMON QUESTIONS (not answered)</h2>
+  {% for q, a in questions %}<details style="--r: {{ loop.cycle('-1.5deg', '1deg', '-0.5deg', '2deg') }}"><summary>{{ q }}</summary><p>{{ a }}</p></details>{% endfor %}
+</div>
+
+<div class="box toy">
+  <h2>Catch the button</h2>
+  <p>It runs away. Eventually it gives up.</p>
+  <div class="arena" id="arena"><button id="run">CLICK ME</button></div>
+</div>
+
+<div class="box toy">
+  <h2>Magic 8-Ball (always unsure)</h2>
+  <button id="ball">ASK THE BALL</button>
+  <div class="out" id="ballout">Think of a question. Do not tell the ball.</div>
+</div>
+
+<div class="box toy">
+  <h2>Chat with a potato</h2>
+  <button id="potato">SAY HI TO THE POTATO</button>
+  <div class="out" id="potout">&#129364; ...</div>
+</div>
+
+<div class="box toy">
+  <h2>Your horoscope</h2>
+  <button id="horo">READ MY FUTURE</button>
+  <div class="out" id="horoout">The stars are buffering.</div>
+</div>
+
+<div class="box toy">
+  <h2>Dice that only know the number 7</h2>
+  <span class="die" id="die">&#127922;</span><br>
+  <button id="roll">ROLL</button>
+  <div class="out" id="rollout">Rolled: nothing yet</div>
+</div>
+
+<div class="box toy">
+  <h2>Download more RAM</h2>
+  <button id="dl">DOWNLOAD 64 GB</button>
+  <div id="pbar"><div id="pfill"></div></div>
+  <div class="out" id="dlout">0%</div>
+</div>
+
+<div class="box toy">
+  <h2>Useless calculator</h2>
+  <input id="a" type="number" value="2" style="font:inherit;width:70px"> +
+  <input id="b" type="number" value="2" style="font:inherit;width:70px">
+  <button id="calc">EQUALS</button>
+  <div class="out" id="calcout">?</div>
+</div>
+
+<div class="box toy">
+  <h2>Rate this website</h2>
+  <div class="stars" id="stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
+  <div class="out" id="rateout">Click a star. We will do the opposite.</div>
+</div>
+
+<div class="box toy">
+  <h2>Boop the beep</h2>
+  <button id="beep">MAKE A NOISE</button>
+  <div class="tiny2">Plays a random beep. Your volume is your problem.</div>
+</div>
+
+<div class="box toy">
+  <h2>Guestbook (nobody reads it)</h2>
+  <input id="gname" placeholder="your name" style="font:inherit;width:60%"><button id="gsign">SIGN</button>
+  <div class="out" id="gbook">No signatures yet. Be the first nobody.</div>
+</div>
+
+<div class="box">
+  <h2>Make it better</h2>
+  <button id="worse">MAKE IT WORSE</button>
+  <button id="better">MAKE IT BETTER</button>
+  <p id="betmsg" class="tiny" style="color:#fff"></p>
+</div>
+
+<div id="dot"></div>
+<div id="cookie">We use cookies. Not the eating kind. We ate them all. <button onclick="this.parentNode.remove()" style="font-size:12px;padding:2px 8px;margin:0 0 0 8px">Whatever</button></div>
+<footer>&copy; 2026 Nobody. Made on purpose by Aws, with Claude helping. This page is a joke. No refunds. <br>Best viewed in a different website.</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const calmQuery = /[?&]calm\b/.test(location.search) || (matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+function openSite(calm) { $("gate").remove(); document.body.classList.remove("gated"); if (calm) document.body.classList.add("calm"); }
+$("gcalm").onclick = () => openSite(true);
+$("gchaos").onclick = () => openSite(false);
+if (calmQuery) $("gcalm").textContent = "Calm mode (recommended for you)";
+$("gcalm").focus();
+async function rnd() { try { return await (await fetch("/api/random")).json(); } catch (e) { return { fact: "The internet fell over.", name: "Gary", excuse: "Offline. Classic.", number: 0 }; } }
+$("factbtn").onclick = async () => { const r = await rnd(); $("fact").textContent = r.fact; };
+$("namebtn").onclick = async () => { const r = await rnd(); $("fact").textContent = "Today you are " + r.name + ". Do not argue."; };
+$("excbtn").onclick = async () => { const r = await rnd(); $("fact").textContent = r.excuse; };
+rnd().then(r => { $("visitor").textContent = r.number; });
+
+/* the title keeps changing and the tab title too */
+const TITLES = ["TOTALLY NORMAL WEBSITE!!!", "totally normal website", "T O T A L L Y", "NORMAL (allegedly)", "WEBSITE?", "hello???"];
+setInterval(() => { const t = TITLES[Math.floor(Math.random() * TITLES.length)]; $("title").textContent = t; document.title = t; }, 1300);
+
+/* the loading bar goes backwards, then refills */
+let w = 100, dir = -1;
+setInterval(() => { w += dir * 2; if (w <= 0) { dir = 1; $("loadtxt").textContent = "Now it is going forwards. Suspicious."; } if (w >= 100) { dir = -1; $("loadtxt").textContent = "It is going backwards. This is fine."; } $("fill").style.width = w + "%"; }, 80);
+
+/* the CLICK ME button runs away from the cursor, but gives in after 8 tries */
+const run = $("run"); let dodges = 0;
+function dodge(e) {
+  if (dodges >= 8) return;
+  const r = run.getBoundingClientRect(), a = $("arena").getBoundingClientRect(), px = e.clientX, py = e.clientY;
+  if (Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2)) < 90) {
+    dodges++;
+    run.style.left = Math.max(0, Math.random() * (a.width - r.width)) + "px"; run.style.top = Math.max(0, Math.random() * (a.height - r.height)) + "px";
+    run.textContent = ["NOPE", "TOO SLOW", "MISSED", "HAHA", "CLOSE", "ALMOST", "OK FINE", "..."][dodges - 1];
+  }
+}
+addEventListener("mousemove", dodge);
+addEventListener("touchstart", e => { if (e.target === run && dodges < 8) { dodge({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY }); } }, { passive: true });
+run.onclick = () => { run.textContent = dodges >= 8 ? "YOU WIN NOTHING" : "HOW?!"; confetti(); };
+
+/* cursor trail */
+const EM = ["⭐", "🍕", "🐸", "💥", "🌈", "🥔", "👀"];
+let last = 0;
+addEventListener("mousemove", e => {
+  const now = Date.now(); if (now - last < 60) return; last = now;
+  const t = document.createElement("div"); t.className = "trail"; t.textContent = EM[Math.floor(Math.random() * EM.length)];
+  t.style.left = e.clientX + "px"; t.style.top = e.clientY + "px"; document.body.appendChild(t);
+  requestAnimationFrame(() => { t.style.transform = "translateY(40px) rotate(180deg)"; t.style.opacity = "0"; });
+  setTimeout(() => t.remove(), 1000);
+});
+
+/* the dot game */
+let score = 0, playing = false; const dot = $("dot");
+function moveDot() { dot.style.left = Math.random() * (innerWidth - 60) + "px"; dot.style.top = 60 + Math.random() * (innerHeight - 140) + "px"; }
+$("dotstart").onclick = () => { score = 0; $("score").textContent = 0; playing = true; dot.style.display = "block"; moveDot(); };
+dot.onclick = () => { if (!playing) return; score++; $("score").textContent = score; moveDot();
+  if (score >= 5) { playing = false; dot.style.display = "none"; $("score").textContent = "5 (nothing happens)"; confetti(); } };
+setInterval(() => { if (playing) moveDot(); }, 1100);
+
+/* confetti */
+function confetti() {
+  for (let i = 0; i < 60; i++) {
+    const c = document.createElement("div"); c.className = "trail"; c.textContent = ["🎉", "✨", "🍌", "🎈"][i % 4];
+    c.style.left = Math.random() * innerWidth + "px"; c.style.top = "-30px"; c.style.transition = "transform 2.2s, opacity 2.2s"; document.body.appendChild(c);
+    requestAnimationFrame(() => { c.style.transform = "translateY(" + (innerHeight + 60) + "px) rotate(" + Math.random() * 720 + "deg)"; c.style.opacity = "0.2"; });
+    setTimeout(() => c.remove(), 2300);
+  }
+}
+
+/* make it worse / better. Better takes 3 clicks, as a joke, and then really works. */
+let better = 0;
+$("worse").onclick = () => { document.body.classList.add("worse"); $("betmsg").textContent = "It is worse now. You asked."; };
+$("better").onclick = () => {
+  better++;
+  if (better < 3) { $("betmsg").textContent = ["Making it better... (click " + better + " of 3)", "Almost better... one more"][better - 1]; document.body.classList.add("worse"); return; }
+  better = 0; document.body.classList.remove("worse"); document.body.style.animation = "none"; document.body.style.background = "#222"; $("betmsg").textContent = "Fine. Calm mode. Reload to ruin it again.";
+  document.querySelectorAll("h1,h2,.box,button,marquee,#fact").forEach(el => { el.style.animation = "none"; el.style.transform = "none"; });
+};
+
+/* more toys */
+async function pick(kind) { try { return (await (await fetch("/api/" + kind)).json()).text; } catch (e) { return "The server is on a tea break."; } }
+$("ball").onclick = async () => { $("ballout").textContent = "🎱 " + await pick("8ball"); };
+$("potato").onclick = async () => { $("potout").textContent = "🥔 " + await pick("potato"); };
+$("horo").onclick = async () => { $("horoout").textContent = "🔮 " + await pick("horoscope"); };
+let rolls = 0;
+$("roll").onclick = () => { rolls++; $("die").textContent = "🎲"; $("rollout").textContent = "Rolled: 7" + (rolls > 3 ? " (again)" : "") + (rolls > 6 ? ". It has only ever known 7." : ""); };
+let dlt = null;
+$("dl").onclick = () => {
+  clearInterval(dlt); let n = 0; $("dlout").textContent = "0%"; $("pfill").style.width = "0%";
+  dlt = setInterval(() => { n += 1 + Math.random() * 7; if (n >= 99) { clearInterval(dlt); $("pfill").style.width = "99%"; $("dlout").textContent = "99%... downloaded 64 GB of nothing. Your RAM is exactly the same."; return; } $("pfill").style.width = n + "%"; $("dlout").textContent = Math.floor(n) + "%"; }, 160);
+};
+$("calc").onclick = () => { const a = +$("a").value, b = +$("b").value; $("calcout").textContent = (a === 2 && b === 2) ? "Fish." : "About " + (a + b + Math.floor(Math.random() * 9 - 4)) + ", give or take a goose."; };
+document.querySelectorAll("#stars span").forEach((st, i) => st.onclick = () => {
+  document.querySelectorAll("#stars span").forEach((x, j) => x.style.color = j < i + 1 ? "gold" : "#555");
+  $("rateout").textContent = ["Only 1? We will take 5, thanks.", "2 stars? Rounded up to a million.", "3 stars: perfectly average chaos.", "4 stars: you have good taste. Or none.", "5 stars! We are lowering it to 2 out of principle."][i];
+});
+let ac = null;
+$("beep").onclick = () => {
+  try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); const o = ac.createOscillator(), g = ac.createGain();
+    o.type = ["square", "sawtooth", "triangle", "sine"][Math.floor(Math.random() * 4)]; o.frequency.value = 150 + Math.random() * 900; g.gain.value = 0.06;
+    o.connect(g); g.connect(ac.destination); o.start(); o.stop(ac.currentTime + 0.25); } catch (e) {}
+};
+let sigs = [];
+$("gsign").onclick = () => { const v = $("gname").value.trim().slice(0, 30); if (!v) { $("gbook").textContent = "You cannot sign as nobody. Wait, you can. Type something."; return; } sigs.unshift(v); $("gbook").innerHTML = ""; sigs.slice(0, 6).forEach(n => { const d = document.createElement("div"); d.textContent = "✍️ " + n + " was here (probably)"; $("gbook").appendChild(d); }); $("gname").value = ""; };
+</script>
+</body>
+</html>
